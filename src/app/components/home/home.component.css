@@ -1,0 +1,67 @@
+    body{
+        padding: 10px 0px 50px 0px;
+    }
+
+    .sidebar-menu {
+      border-right: 1px solid #ddd;
+      height: 100%;
+    }
+    .flash-sale-title {
+      color: #000;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    .flash-sale-timer span {
+      font-weight: bold;
+      color: #000;
+    }
+    .product-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+      background-color: #fff;
+    }
+    .sale-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background-color: #16d25d;
+      color: white;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+    }
+    .category-icon {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px 10px;
+      text-align: center;
+      transition: all 0.2s ease-in-out;
+    }
+    .category-icon:hover {
+      background-color: #16d25d;
+      color: #fff;
+    }
+    .category-icon.active {
+      background-color: #16d25d;
+      color: white;
+    }
+
+    a{
+        text-decoration: none;
+        color: black;
+    }
+
+    .btonver{
+        background-color: #16d25d;
+        color: white;
+        border: none;
+    }
+
+    .btonver:hover{
+        background-color: #04963c;
+        color: white;
+        border: none;
+    }

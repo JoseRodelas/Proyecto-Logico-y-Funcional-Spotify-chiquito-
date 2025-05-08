@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Commerce Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-3">
+  <div class="row">
+    <!-- Sidebar + Slider -->
+    <div class="col-md-3">
+      <div class="sidebar-menu p-3 bg-white mb-3">
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="music">Música</a></li>
+          <li class="mb-2"><a href="podcasts">Podcasts</a></li>
+          <li class="mb-2"><a href="events">Eventos en vivo</a></li>
+          <li class="mb-2"><a href="foryou">Para ti</a></li>
+          <li class="mb-2"><a href="new">Nuevos lanzamientos</a></li>
+          <li class="mb-2"><a href="mexicanmusic">Música Mexicana</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <!-- Carousel -->
+      <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/assets/images/spotify-banner.png" class="d-block w-100" alt="Banner">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flash Sales -->
+  <div class="bg-white p-4 mt-4 rounded">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="flash-sale-title"><h4 class="fw-bold">Música del dia</h4></div>
+    </div>
+
+    <div class="row g-3">
+      <!-- Product card -->
+      <div class="col-6 col-md-2">
+        <div class="product-card">
+          <div class="sale-badge">Top</div>
+          <img src="assets/images/queen-ejemplo.jpeg" class="img-fluid mb-2" alt="Product">
+          <p class="mb-1 small">The Show Man</p>
+          <p class="mb-1 small">Queen</p>
+        </div>
+      </div>
+      <!-- Puedes duplicar este bloque para agregar más productos -->
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="allmusic" class="btn btonver">Ver Todo</a>
+    </div>
+  </div>
+
+  <!-- Browse by Category -->
+  <div class="mt-5">
+    <h5 class="text-danger">Categorias</h5>
+    <h4 class="fw-bold">Buscar Por Categoria</h4>
+    <div class="row text-center mt-3 g-3">
+      <div class="col-4 col-md-2">
+        <div class="category-icon">
+          <i class="bi bi-phone fs-3"></i><br>Phones
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="category-icon">
+          <i class="bi bi-laptop fs-3"></i><br>Computers
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="category-icon">
+          <i class="bi bi-smartwatch fs-3"></i><br>Smartwatch
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="category-icon">
+          <i class="bi bi-camera fs-3"></i><br>Cameras
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="category-icon">
+          <i class="bi bi-headphones fs-3"></i><br>Headphones
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="category-icon">
+          <i class="bi bi-controller fs-3"></i><br>Gaming
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Angular-based E-commerce UI (HTML with Bootstrap) -->
+<!-- Make sure to have Bootstrap CSS and JS loaded in your angular.json -->
+
+<div class="container my-5">
+    <!-- Best Selling Products -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="text-danger">Este Mes</h5>
+        <h4 class="fw-bold">Best Selling Products</h4>
+      </div>
+      <button class="btn btn-danger">View All</button>
+    </div>
+  
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Product Image">
+          <div class="card-body text-center">
+            <h6 class="card-title">Product Title</h6>
+            <p class="mb-0">
+              <span class="text-danger fw-bold">$120</span>
+              <span class="text-muted text-decoration-line-through">$160</span>
+            </p>
+            <p class="text-warning">★ 4.5 (120)</p>
+          </div>
+        </div>
+      </div>
+      <!-- Repeat 3 more dummy cards -->
+      <div class="col-6 col-md-3">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Product Image">
+          <div class="card-body text-center">
+            <h6 class="card-title">Product Title</h6>
+            <p class="mb-0">
+              <span class="text-danger fw-bold">$120</span>
+              <span class="text-muted text-decoration-line-through">$160</span>
+            </p>
+            <p class="text-warning">★ 4.5 (120)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Product Image">
+          <div class="card-body text-center">
+            <h6 class="card-title">Product Title</h6>
+            <p class="mb-0">
+              <span class="text-danger fw-bold">$120</span>
+              <span class="text-muted text-decoration-line-through">$160</span>
+            </p>
+            <p class="text-warning">★ 4.5 (120)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Product Image">
+          <div class="card-body text-center">
+            <h6 class="card-title">Product Title</h6>
+            <p class="mb-0">
+              <span class="text-danger fw-bold">$120</span>
+              <span class="text-muted text-decoration-line-through">$160</span>
+            </p>
+            <p class="text-warning">★ 4.5 (120)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Music Promotion Section -->
+    <div class="my-5">
+      <div class="p-4 bg-dark text-white rounded d-flex justify-content-between align-items-center">
+        <div>
+          <small class="text-success">Categories</small>
+          <h3 class="fw-bold">Enhance Your Music Experience</h3>
+          <div class="my-3">
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">23%</button>
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">45%</button>
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">60%</button>
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">78%</button>
+          </div>
+          <button class="btn btn-success">Buy Now!</button>
+        </div>
+        <img src="https://via.placeholder.com/300x200" class="img-fluid" style="max-height: 200px;" alt="Speaker">
+      </div>
+    </div>
+  
+    <!-- Explore Our Products -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="text-danger">Nuestra Música</h5>
+        <h4 class="fw-bold">Explore Our Products</h4>
+      </div>
+      <div>
+        <button class="btn btn-outline-secondary btn-sm"><</button>
+        <button class="btn btn-outline-secondary btn-sm">></button>
+      </div>
+    </div>
+  
+    <div class="row g-3">
+      <!-- Repeat dummy product cards -->
+      <div class="col-6 col-md-3" *ngFor="let i of [1,2,3,4,5,6,7,8]">
+        <div class="card h-100">
+          <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Product Image">
+          <div class="card-body text-center">
+            <h6 class="card-title">Product Title</h6>
+            <p class="mb-0">
+              <span class="text-danger fw-bold">$100</span>
+              <span class="text-muted text-decoration-line-through">$140</span>
+            </p>
+            <p class="text-warning">★ 4.2 (95)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="text-center mt-4">
+      <button class="btn btn-danger">View All Products</button>
+    </div>
+  </div>
+  
+
+</body>
+</html>

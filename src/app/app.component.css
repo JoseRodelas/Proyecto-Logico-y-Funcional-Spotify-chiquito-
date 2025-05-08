@@ -1,0 +1,11 @@
+
+.signup-image img {
+    max-width: 100%;
+    width: 400px;
+  }
+
+  .btn-custom {
+    background-color: #16d25d;
+    color: white;
+    border: none;
+  }

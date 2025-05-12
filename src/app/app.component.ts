@@ -45,10 +45,6 @@ export class AppComponent {
     this.renderer.addClass(body, theme);
   }
 
-<<<<<<< HEAD
-  
-=======
->>>>>>> a69d0a714f646dbb6789a674a5efa722364bf93e
   cerrarSesion() {
     this.sesionService.cerrarSesion();
     this.router.navigate(['/login']);

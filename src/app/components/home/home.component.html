@@ -31,29 +31,27 @@
   <!-- Flash Sales -->
   <div class="sobresaliente p-4 mt-4 rounded">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="flash-sale-title"><h4 class="fw-bold">Música del dia</h4></div>
+      <div class="flash-sale-title"><h4 class="fw-bold">Música Destacada</h4></div>
     </div>
 
     <div class="row g-3">
-      <!-- Product card -->
-      <div class="col-6 col-md-2">
-      <div class="product-card">
-        <div class="sale-badge">Top</div>
-        <div class="image-wrapper">
-          <img src="assets/images/queen-ejemplo.jpeg" class="img-fluid mb-2" alt="Product">
-          <div class="play-button">
-            <i class="bi bi-play-fill"></i>
+      <div *ngFor="let cancion of cancionesMostradas" class="col-6 col-md-2">
+        <div class="product-card">
+          <div class="sale-badge">Top</div>
+          <div class="image-wrapper">
+            <img [src]="cancion.images[0].url" class="img-fluid mb-2" alt="Product">
+            <div class="play-button">
+              <i class="bi bi-play-fill"></i>
+            </div>
           </div>
+          <p class="mb-1 small">{{ cancion.name }}</p>
+          <p class="mb-1 small">{{ cancion.artists[0].name }}</p>
         </div>
-        <p class="mb-1 small">The Show Man</p>
-        <p class="mb-1 small">Queen</p>
       </div>
-      </div>
-      <!-- Puedes duplicar este bloque para agregar más productos -->
     </div>
 
     <div class="text-center mt-4">
-      <a href="allmusic" class="btn btonver">Ver Todo</a>
+      <button *ngIf="cancionesMostradas.length < cancionesTotales.length" (click)="verMas()" class="btn btonver">Ver Más</button>
     </div>
   </div>
 

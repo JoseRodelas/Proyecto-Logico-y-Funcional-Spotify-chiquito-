@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { SesionService } from '../../servicios/sesion.service'; // ajusta la ruta si es necesario
+import { SesionService } from '../../servicios/sesion.service';
 
 
 @Component({

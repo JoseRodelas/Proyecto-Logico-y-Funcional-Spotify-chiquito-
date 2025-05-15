@@ -1,25 +1,76 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SesionService } from './sesion.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
 
-  private baseUrl = 'http://localhost:3000'; // URL base del backend
+  private baseUrl = 'https://api.spotify.com/v1';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private sesionService: SesionService
+  ) {}
 
-  obtenerTopTracks(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/top-tracks`);
+  private get headers(): HttpHeaders {
+    const token = this.sesionService.obtenerToken(); // Tu método para recuperar el token
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  obtenerFeaturedPlaylists(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/featured-playlists`);
+  getNuevosLanzamientos(): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/browse/new-releases?limit=20`, { headers: this.headers })
+      .pipe(map((res: any) => res.albums.items));
   }
 
-  obtenerPopPlaylists(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/pop-playlists`);
+  getTopTracks(): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/me/top/tracks?limit=12`, { headers: this.headers })
+      .pipe(map((res: any) => res.items));
+  }
+
+  getRecomendacionesPorArtista(artistaId: string): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/recommendations?limit=12&seed_artists=${artistaId}`, { headers: this.headers })
+      .pipe(map((res: any) => res.tracks));
+  }
+
+  getRecomendacionesPorGenero(genero: string): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/recommendations?limit=12&seed_genres=${genero}`, { headers: this.headers })
+      .pipe(map((res: any) => res.tracks));
+  }
+
+  getArtistasFavoritos(): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/me/top/artists?limit=5`, { headers: this.headers })
+      .pipe(map((res: any) => res.items));
+  }
+
+  // 1. Canciones guardadas (favoritos)
+  getFavoritos(): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/me/tracks?limit=6`, { headers: this.headers })
+      .pipe(map((res: any) => res.items.map((item: any) => item.track))); // Extrae solo la canción
+  }
+
+  // 2. Música por categoría
+  getMusicaPorCategoria(categoriaId: string): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/browse/categories/${categoriaId}?limit=5`, { headers: this.headers })
+      .pipe(map((res: any) => res.playlists.items)); // Devuelve playlists relacionadas a la categoría
+  }
+
+  // Reproducir musica
+  reproducirCancion(uri: string): Observable<any> {
+    const body = {
+      uris: [uri]
+    };
+    return this.http.put(`${this.baseUrl}/me/player/play`, body, { headers: this.headers });
+  }
+
+  // Reproducir álbum
+  reproducirAlbum(uri: string): Observable<any> {
+    const body = {
+      context_uri: uri
+    };
+    return this.http.put(`${this.baseUrl}/me/player/play`, body, { headers: this.headers });
   }
 }

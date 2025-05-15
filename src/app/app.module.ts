@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service'; 
 
 import { HttpClientModule } from '@angular/common/http';
+import { CallbackComponent } from './pages/callback/callback.component';
+import { PlayerComponent } from './pages/spotify-player/spotify-player.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AboutComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CallbackComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,

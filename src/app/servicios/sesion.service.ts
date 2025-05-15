@@ -34,4 +34,9 @@ export class SesionService {
     const data = this.cookieService.get('usuario');
     return data ? JSON.parse(data) : null;
   }
+
+  obtenerToken(): string | null {
+    const usuario = this.usuarioActual;
+    return usuario?.token || null;
+  }
 }

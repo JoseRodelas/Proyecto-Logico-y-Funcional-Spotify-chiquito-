@@ -1,33 +1,46 @@
 <!-- Top Banner -->
-<div class="bg-dark text-white text-center py-2 small">
+<div class="bg-dark text-white text-center py-2 small" style="width: 100%;">
   Proyecto De Programacion Logica Y Funcional
 </div>
 
 <!-- Navbar -->
-<header class="navbar navbar-expand-lg shadow-sm px-4 py-3">
-  <div class="container-fluid">
-    <!-- <span class="navbar-brand fw-bold fs-4" style="color: #16d25d;">Spotify</span> -->
-    <span class="navbar-brand fw-bold fs-4"><img src="assets/images/logo-spotify-smart.png" style="width: 180px;" alt="title"></span>
-    <nav class="d-flex gap-3">
+<!-- Navbar -->
+<header class="navbar navbar-expand-lg shadow-sm px-4 py-3" style="width: 100%;">
+  <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
+
+    <!-- Logo -->
+    <span class="navbar-brand fw-bold fs-4">
+      <img src="assets/images/logo-spotify-smart.png" class="justify-content-center" style="width: 60%; max-width: 180px;" alt="title">
+    </span>
+
+    <!-- Enlaces de navegación -->
+    <nav class="d-flex flex-wrap gap-2 justify-content-center" style="flex-grow: 1;">
       <a href="/home" class="nav-link">Inicio</a>
       <a href="/favorites" class="nav-link">Favoritos</a>
       <a href="/about" class="nav-link">Acerca Del Equipo</a>
-
       <a *ngIf="!usuarioLogueado" href="/login" class="nav-link fw-bold">Iniciar Sesión</a>
       <a *ngIf="usuarioLogueado" (click)="cerrarSesion()" class="nav-link text-danger fw-bold" style="cursor: pointer;">Cerrar Sesión</a>
     </nav>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Buscar" />
-      <button class="btn btn-outline-secondary" type="submit">
-        <i class="fas fa-search"></i>
-      </button>
-    </form>
-    <span *ngIf="nombreUsuario" class="nav-link fw-bold">
+
+    <!-- Buscador + Modo oscuro + Nombre de usuario -->
+    <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0" style="max-width: 100%;">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Buscar" />
+        <button class="btn btn-outline-secondary" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+
+      <span *ngIf="nombreUsuario" class="fw-bold ms-2">
         Bienvenido, {{ nombreUsuario.nombre }}
-    </span>
-    <button class="btn btn-outline-secondary" (click)="toggleTheme()">
-      <i [ngClass]="theme === 'light-theme' ? 'bi bi-moon' : 'bi bi-sun'"></i>
-    </button>
+      </span>
+
+      <button class="btn btn-outline-secondary" (click)="toggleTheme()">
+        <i [ngClass]="theme === 'light-theme' ? 'bi bi-moon' : 'bi bi-sun'"></i>
+      </button>
+      
+    </div>
+
   </div>
 </header>
 
@@ -36,25 +49,23 @@
 <app-player></app-player>
 
 <!-- Footer -->
-<footer class="bg-dark text-white py-5 px-4">
-  <div class="container" style="margin-bottom: 100px;">
     <div class="row gy-4">
-      <div class="col-md-3">
+      <div class="col-12 col-md-3">
         <h3>Exclusive</h3>
         <p>Subscribe</p>
         <p>Get 10% off your first order</p>
-        <div class="d-flex">
-          <input type="email" class="form-control me-2" placeholder="Enter your email" />
+        <div class="d-flex flex-column flex-md-row">
+          <input type="email" class="form-control mb-2 mb-md-0 me-md-2" placeholder="Enter your email" />
           <button class="btn btn-light">&gt;</button>
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-12 col-md-2">
         <h5>Support</h5>
         <p>111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.</p>
         <p>exclusive@gmail.com</p>
         <p>+88015-88888-9999</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-12 col-md-2">
         <h5>Account</h5>
         <p>My Account</p>
         <p>Login / Register</p>
@@ -62,20 +73,20 @@
         <p>Wishlist</p>
         <p>Shop</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-12 col-md-2">
         <h5>Quick Link</h5>
         <p>Privacy Policy</p>
         <p>Terms Of Use</p>
         <p>FAQ</p>
         <p>Contact</p>
       </div>
-      <div class="col-md-3">
+      <div class="col-12 col-md-3">
         <h5>Download App</h5>
         <p>Save $3 with App New User Only</p>
-        <img src="assets/images/qr-code.png" alt="QR Code" class="img-fluid mb-2" width="200" />
-        <div class="d-flex mb-2">
-          <img src="assets/images/google-play.png" alt="Google Play" class="me-2" width="150" />
-          <img src="assets/images/app-store.png" alt="App Store" width="150" />
+        <img src="assets/images/qr-code.png" alt="QR Code" class="img-fluid mb-2" style="width: 80%; max-width: 200px;" />
+        <div class="d-flex flex-wrap mb-2">
+          <img src="assets/images/google-play.png" alt="Google Play" class="me-2 mb-2" style="width: 45%; max-width: 150px;" />
+          <img src="assets/images/app-store.png" alt="App Store" style="width: 45%; max-width: 150px;" />
         </div>
         <div class="d-flex gap-2">
           <i class="fab fa-facebook-f"></i>
@@ -91,4 +102,3 @@
 <div class="bg-black text-secondary text-center py-2 small">
   © Copyright Rimel 2025. All right reserved
 </div>
-

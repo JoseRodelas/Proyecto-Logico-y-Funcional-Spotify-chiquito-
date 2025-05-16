@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
-import { SesionService } from '../../servicios/sesion.service'; // ajusta la ruta si es necesario
+import { SesionService } from '../../servicios/sesion.service';
 
 
 @Component({
@@ -53,11 +54,26 @@ export class LoginComponent {
   }
 
   loginConSpotify() {
-    const clientId = '883b452674924c99b93ae99633df61fc';
-    const redirectUri = encodeURIComponent('http://localhost:4200/callback'); // o la URL de tu app
-    const scopes = encodeURIComponent('user-read-private user-read-email');
+    const clientId = environment.spotifyClientId;
+    const redirectUri = encodeURIComponent('http://localhost:4200/callback'); 
+    const scopes = environment.scopes;
+    const state = this.generateRandomState(16);
+
+    localStorage.setItem('spotify_auth_state', state);
 
     window.location.href =
-      `https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${scopes}&redirect_uri=${redirectUri}`;
+      `https://accounts.spotify.com/authorize` +
+      `?response_type=token` +
+      `&client_id=${clientId}` +
+      `&scope=${scopes}` +
+      `&redirect_uri=${redirectUri}` +
+      `&state=${state}` +
+      `&show_dialog=true`; // ← aquí lo agregas
+  }
+
+
+  generateRandomState(length: number): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
   }
 }

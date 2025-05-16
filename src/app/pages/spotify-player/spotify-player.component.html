@@ -1,0 +1,45 @@
+<div class="player-bar fixed-bottom bg-black text-white px-4 py-2" *ngIf="current_track && current_track.name && duration > 0">
+  <div class="container-fluid position-relative">
+    <!-- Elemento izquierdo (imagen y título) -->
+    <div class="position-absolute start-0 top-50 translate-middle-y d-flex align-items-center ps-3" style="max-width: 40%;">
+      <img [src]="current_track.album.images[0].url" alt="track image" width="56" height="56" class="me-3 rounded">
+      <div class="text-truncate">
+        <div class="fw-bold text-truncate">{{ current_track.name }}</div>
+        <div class="small text-truncate text-white">
+          {{ getArtistNames() }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Centro (controles + barra de progreso) -->
+    <div class="d-flex flex-column align-items-center justify-content-center mx-auto" style="max-width: 600px;">
+      <!-- Botones -->
+      <div class="d-flex justify-content-center align-items-center mb-2">
+        <button class="btn btn-link text-white" (click)="previousTrack()">
+          <i class="bi bi-skip-backward-fill fs-5"></i>
+        </button>
+        <button class="btn btn-light mx-3 rounded-circle" style="width: 48px; height: 48px;" (click)="togglePlayback()">
+          <i class="bi" [ngClass]="is_paused ? 'bi-play-fill' : 'bi-pause-fill'" style="font-size: 1.5rem;"></i>
+        </button>
+        <button class="btn btn-link text-white" (click)="nextTrack()">
+          <i class="bi bi-skip-forward-fill fs-5"></i>
+        </button>
+      </div>
+
+      <!-- Barra de progreso -->
+      <div class="d-flex align-items-center w-100">
+        <small class="me-2" style="width: 40px; text-align: right;">{{ msToTime(position) }}</small>
+        <div class="progress flex-grow-1 mx-2" style="height: 4px; background-color: #444;">
+          <div class="progress-bar bg-white" role="progressbar" [style.width.%]="(position / duration) * 100"></div>
+        </div>
+        <small style="width: 40px;">{{ msToTime(duration) }}</small>
+      </div>
+    </div>
+
+    <!-- Elemento derecho (dispositivo) -->
+    <div class="position-absolute end-0 top-50 translate-middle-y d-none d-md-flex align-items-center pe-3 text-success" style="font-size: 0.9rem;">
+      <i class="bi bi-speaker me-1"></i>
+      {{ deviceName }}
+    </div>
+  </div>
+</div>

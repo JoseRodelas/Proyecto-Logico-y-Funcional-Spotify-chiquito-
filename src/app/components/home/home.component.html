@@ -58,42 +58,85 @@
   </div>
 
   <!-- Browse by Category -->
-  <div class="mt-5">
-    <h5 class="text-decorativo">Categorias</h5>
-    <h4 class="fw-bold">Buscar Por Categoria</h4>
-    <div class="row text-center mt-3 g-3">
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-phone fs-3"></i><br>Phones
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-laptop fs-3"></i><br>Computers
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-smartwatch fs-3"></i><br>Smartwatch
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-camera fs-3"></i><br>Cameras
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-headphones fs-3"></i><br>Headphones
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-controller fs-3"></i><br>Gaming
-        </div>
+   <div class="sobresaliente p-4 mt-4 rounded">
+    <!-- Botones de categorías con scroll horizontal -->
+  <div class="categories-scroller mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="flash-sale-title">
+        <h4 class="fw-bold" id="tituloCategoria">MusicaPop</h4>
       </div>
     </div>
-  </div>
+
+    <!-- Contenedor para las canciones -->
+    <div class="row g-3" id="ContenedorCanciones">
+      <!-- Aquí se agregarán las canciones dinámicamente -->
+      <div class="col-6 col-md-2">
+        <div class="product-card">
+          <div class="sale-badge">Top</div>
+          <div class="image-wrapper">
+            <img src="assets/images/queen-ejemplo.jpeg" class="img-fluid mb-2" alt="Canción">
+            <div class="play-button">
+              <i class="bi bi-play-fill"></i>
+            </div>
+          </div>
+          <p class="mb-1 small">The Show</p>
+          <p class="mb-1 small">Queen</p>
+        </div>
+      </div>
+      <!--Titulo dinamico-->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold">
+          <span *ngIf="currentCategory === 'pop'">Música Pop</span>
+          <span *ngIf="currentCategory === 'rock'">Rock Clásico</span>
+          <span *ngIf="currentCategory === 'jazz'">Jazz & Blues</span>
+          <span *ngIf="currentCategory === 'hip-hop'">Hip Hop</span>
+          <span *ngIf="currentCategory === 'reggaeton'">Reggaeton</span>
+          <span *ngIf="currentCategory === 'electronica'">Electrónica</span>
+        </h4>
+      </div>
+      <div class="row g-3" *ngif="showAllsongs">
+        <div class="col-6 col-md-3 col-lg-2" *ngFor="let song of displayedSongs">
+          <div class="song-card">
+            <div class="position-relative">
+              <div class="sale-badge" *ngIf="song.isTop">Top</div>
+              <img [src]="song.image || 'assets/images/default.jpg'" class="img-fluid mb-2" alt="{{song.title}}">
+              <div class="play-button"(click)="playSong(song)">
+                <i class="bi bi-play-fill"></i>
+              </div>
+              <div class="mt-2">
+                <p class="mb-0 fw-bold text-truncate">{{song.title}}</p>
+                <p class="mb-0 small text-muted text-truncate">{{song.artist}}</p>
+                <small class="text-muted">{{song.duration}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Contenedor de canciones vista completa -->
+        <div class="row g-3"*ngIf="showAllSongs">
+          <div class="col-6 col-md-3 col-lg-2" *ngFor="let song of songs[currentCategory]">
+            <div class="song-card">
+              <div class="position-relative">
+                <div class="sale-badge" *ngIf="song.isTop">Top</div>
+                <img [src]="song.image || 'assets/images/default-music.jpg'" class="img-fluid mb-2" alt="{{song.title}}">
+                <div class="play-button" (click)="playSong(song)">
+                  <i class="bi bi-play-fill"></i>
+                </div>
+                <div class="mt-2">
+                  <p class="mb-0 fw-bold text-truncate">{{song.title}}</p>
+                  <p class="mb-0 small text-muted text-truncate">{{song.artist}}</p>
+                  <small class="text-muted">{{song.duration}}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Boton Ver Todo/Mostrar Menos -->
+          <div class="text-center mt-4">
+            <button class="btn btonver" (click)="toggleShowAll()">
+              {{ showAllSongs ? 'Mostrar Menos' : 'Ver Todo' }}
+              <i class="bi" [class.bi-chevron-down]="!showAllSongs" [class.bi-chevron-up]="showAllSongs"></i>
+            </button>
+          </div>
+        </div>
 </div>
 
 <!-- Angular-based E-commerce UI (HTML with Bootstrap) -->

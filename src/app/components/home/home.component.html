@@ -31,27 +31,29 @@
   <!-- Flash Sales -->
   <div class="sobresaliente p-4 mt-4 rounded">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="flash-sale-title"><h4 class="fw-bold">Nuevos Lanzamientos</h4></div>
+      <div class="flash-sale-title"><h4 class="fw-bold">Música del dia</h4></div>
     </div>
 
     <div class="row g-3">
-      <div *ngFor="let cancion of nuevascancionesMostradas" class="col-6 col-md-2">
-        <div class="product-card">
-          <div class="sale-badge">New</div>
-          <div class="image-wrapper">
-            <img [src]="cancion.images[0].url" class="img-fluid mb-2" alt="Product">
-            <div class="play-button" (click)="reproducirAlbum(cancion.uri)">
-              <i class="bi bi-play-fill"></i>
-            </div>
+      <!-- Product card -->
+      <div class="col-6 col-md-2">
+      <div class="product-card">
+        <div class="sale-badge">Top</div>
+        <div class="image-wrapper">
+          <img src="assets/images/queen-ejemplo.jpeg" class="img-fluid mb-2" alt="Product">
+          <div class="play-button">
+            <i class="bi bi-play-fill"></i>
           </div>
-          <p class="mb-1 small">{{ cancion.name }}</p>
-          <p class="mb-1 small">{{ cancion.artists[0].name }}</p>
         </div>
+        <p class="mb-1 small">The Show Man</p>
+        <p class="mb-1 small">Queen</p>
       </div>
+      </div>
+      <!-- Puedes duplicar este bloque para agregar más productos -->
     </div>
 
     <div class="text-center mt-4">
-      <button *ngIf="nuevascancionesMostradas.length < nuevascancionesTotales.length" (click)="verMasTop()" class="btn btonver">Ver Más</button>
+      <a href="allmusic" class="btn btonver">Ver Todo</a>
     </div>
   </div>
 
@@ -101,49 +103,52 @@
     <!-- Best Selling Products -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div>
-        <h5 class="text-decorativo">Creado Por Ti</h5>
-        <h4 class="fw-bold">Tus Favoritos</h4>
+        <h5 class="text-decorativo">Este Mes</h5>
+        <h4 class="fw-bold">Lo Mas Escuchado</h4>
       </div>
       <button class="btn btonver">Ver todo</button>
     </div>
   
     <div class="row g-3">
-      <div *ngFor="let cancion of favoritos" class="col-6 col-md-2">
-        <div class="product-card">
-          <div class="image-wrapper">
-            <img [src]="cancion.album.images[0].url" class="img-fluid mb-2" alt="Product">
-            <div class="play-button" (click)="reproducir(cancion.uri)">
-              <i class="bi bi-play-fill"></i>
-            </div>
+      <!-- Product card -->
+      <div class="col-6 col-md-2">
+      <div class="product-card">
+        <div class="image-wrapper">
+          <img src="assets/images/queen-ejemplo.jpeg" class="img-fluid mb-2" alt="Product">
+          <div class="play-button">
+            <i class="bi bi-play-fill"></i>
           </div>
-          <p class="mb-1 small">{{ cancion.name }}</p>
-          <p class="mb-1 small">{{ cancion.artists[0].name }}</p>
         </div>
+        <p class="mb-1 small">The Show Man</p>
+        <p class="mb-1 small">Queen</p>
       </div>
+      </div>
+      <!-- Puedes duplicar este bloque para agregar más productos -->
     </div>
   
     <!-- Music Promotion Section -->
-    <div class="container my-5">
-      <div class="p-4 rounded text-white d-flex flex-lg-row flex-column-reverse align-items-center bg-black" style="background: radial-gradient(circle, #111 0%, #000 100%);">
-        <!-- Texto -->
-        <div class="text-center text-lg-center pe-lg-5" style="width: 50%;">
-          <small class="text-success fw-bold">Spotify</small>
-          <h2 class="fw-bold display-6">Música<br>Para Todos</h2>
+    <div class="my-5">
+      <div class="p-4 bg-dark text-white rounded d-flex justify-content-between align-items-center">
+        <div>
+          <small class="text-success">Categories</small>
+          <h3 class="fw-bold">Enhance Your Music Experience</h3>
+          <div class="my-3">
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">23%</button>
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">45%</button>
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">60%</button>
+            <button class="btn btn-outline-light btn-sm rounded-pill mx-1">78%</button>
+          </div>
+          <button class="btn btn-success">Buy Now!</button>
         </div>
-        
-        <!-- Imagen -->
-        <div class="text-center mb-4 mb-lg-0">
-          <img src="/assets/images/telefonos.png" class="img-fluid" style="max-width: 100%;" alt="telefonos">
-        </div>
+        <img src="https://via.placeholder.com/300x200" class="img-fluid" style="max-height: 200px;" alt="Speaker">
       </div>
     </div>
-
   
     <!-- Explore Our Products -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div>
-        <h5 class="text-decorativo">Lo Mas Popular</h5>
-        <h4 class="fw-bold">Explora Música Destacada</h4>
+        <h5 class="text-decorativo">Nuestra Música</h5>
+        <h4 class="fw-bold">Explore Our Products</h4>
       </div>
       <!--<div>
         <button class="btn btn-outline-secondary btn-sm"><</button>
@@ -152,23 +157,24 @@
     </div>
     
     <div class="row g-3">
-      <div *ngFor="let cancion of topTracksMostrados" class="col-6 col-md-2">
-        <div class="product-card">
-          <div class="sale-badge">Top</div>
-          <div class="image-wrapper">
-            <img [src]="cancion.album.images[0]?.url" class="img-fluid mb-2" alt="Product">
-            <div class="play-button" (click)="reproducir(cancion.uri)">
-              <i class="bi bi-play-fill"></i>
-            </div>
+      <!-- Product card -->
+      <div class="col-6 col-md-2" *ngFor="let i of [1,2,3,4,5,6,7,8]">
+      <div class="product-card">
+        <div class="image-wrapper">
+          <img src="assets/images/queen-ejemplo.jpeg" class="img-fluid mb-2" alt="Product">
+          <div class="play-button">
+            <i class="bi bi-play-fill"></i>
           </div>
-          <p class="mb-1 small">{{ cancion.name }}</p>
-          <p class="mb-1 small">{{ cancion.artists[0].name }}</p>
         </div>
+        <p class="mb-1 small">The Show Man</p>
+        <p class="mb-1 small">Queen</p>
       </div>
+      </div>
+      <!-- Puedes duplicar este bloque para agregar más productos -->
     </div>
   
     <div class="text-center mt-4">
-      <button class="btn btonver">Ver Toda La Música</button>
+      <button class="btn btn-danger">View All Products</button>
     </div>
   </div>
   

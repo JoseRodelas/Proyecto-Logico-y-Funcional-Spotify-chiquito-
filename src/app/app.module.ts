@@ -11,25 +11,18 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service'; 
 
-import { HttpClientModule } from '@angular/common/http';
-import { CallbackComponent } from './pages/callback/callback.component';
-import { PlayerComponent } from './pages/spotify-player/spotify-player.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
     HomeComponent,
-    LoginComponent,
-    CallbackComponent,
-    PlayerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+    FormsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

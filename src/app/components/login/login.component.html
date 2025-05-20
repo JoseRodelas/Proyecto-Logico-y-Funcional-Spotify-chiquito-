@@ -1,0 +1,24 @@
+<!-- Signup Section -->
+<main class="container py-5 d-flex flex-wrap justify-content-center align-items-center">
+  <div class="col-md-6 text-center mb-4 mb-md-0">
+    <img src="assets/images/logo-spotify-completo.png" class="img-fluid" style="max-width: 400px;" alt="Shopping image" />
+  </div>
+  <div class="col-md-4">
+    <div *ngIf="mensaje" class="alert alert-dismissible fade show" [ngClass]="alertaClase" role="alert">
+        {{ mensaje }}
+        <button type="button" class="btn-close" aria-label="Close" (click)="mensaje = ''"></button>
+    </div>
+    <h2 class="mb-2">Iniciar sesion</h2>
+    <p class="mb-4">Ingresa tus datos</p>
+    <input type="text" class="form-control mb-3" placeholder="Nombre" [(ngModel)]="nombre" />
+    <input type="text" class="form-control mb-3" placeholder="Correo" [(ngModel)]="correo" />
+    <input type="password" class="form-control mb-3" placeholder="Contraseña" [(ngModel)]="password" />
+    <button class="btn btn-custom w-100 mb-3" (click)="simularLogin()">Iniciar Sesión</button>
+    <button class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center gap-2 mb-3"
+        (click)="loginConSpotify()">
+        <img src="assets/images/logo-spotify-mini.png" alt="Spotify" width="20" />
+        Iniciar sesión con Spotify
+    </button>
+    <!-- <p class="text-center">¿Ya tienes una cuenta? <a href="#">Iniciar sesion</a></p> -->
+  </div>
+</main>

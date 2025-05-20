@@ -12,3 +12,11 @@
     cursor: pointer;
   }
   
+  .infocard{
+    transition: all 0.2s ease-in-out;
+  }
+
+  .infocard:hover {
+    background-color: #16d25d;
+    color: #fff;
+  }

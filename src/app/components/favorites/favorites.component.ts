@@ -1,33 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SpotifyService } from '../../servicios/spotify.service';
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-favorites',
+  templateUrl: './favorites.component.html',
+  styleUrls: ['./favorites.component.css']
 })
-export class HomeComponent implements OnInit {
-
+export class FavoritesComponent {
   canciones: any[] = [];
-  nuevascancionesMostradas: any[] = [];  // Lista de canciones que se mostrarán inicialmente
-  nuevascancionesTotales: any[] = [];  // Lista con todas las canciones obtenidas
-
-  cancionesPorPagina: number = 6; // Cantidad de canciones a mostrar inicialmente
-
-  topTracks: any[] = [];
-  topTracksMostrados: any[] = [];
-  topTracksTotales: any[] = [];
-
-  favoritos: any[] = [];
-  favoritosMostrados: any[] = [];
-  favoritosTotales: any[] = [];
-
-  podcasts: any[] = [];
-  podcastsMostrados: any[] = [];
-  podcastsTotales: any[] = [];
-
-  constructor(private spotifyService: SpotifyService) { }
-
+    nuevascancionesMostradas: any[] = [];  // Lista de canciones que se mostrarán inicialmente
+    nuevascancionesTotales: any[] = [];  // Lista con todas las canciones obtenidas
+  
+    cancionesPorPagina: number = 50; // Cantidad de canciones a mostrar inicialmente
+  
+    topTracks: any[] = [];
+    topTracksMostrados: any[] = [];
+    topTracksTotales: any[] = [];
+  
+    favoritos: any[] = [];
+    favoritosMostrados: any[] = [];
+    favoritosTotales: any[] = [];
+  
+    podcasts: any[] = [];
+    podcastsMostrados: any[] = [];
+    podcastsTotales: any[] = [];
+  
+    constructor(private spotifyService: SpotifyService) { }
   ngOnInit(): void {
     this.obtenerTopTracks();
     this.obtenerNuevosLanzamientos();
@@ -99,6 +96,5 @@ export class HomeComponent implements OnInit {
     const nuevaCantidad = this.nuevascancionesMostradas.length + this.cancionesPorPagina;
     this.nuevascancionesMostradas = this.nuevascancionesTotales.slice(0, nuevaCantidad);
   }
-
-  
+    
 }

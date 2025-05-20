@@ -5,7 +5,43 @@
     font-weight: normal;
     font-style: normal;
   }
-  
-  body {
-    font-family: 'Fuente', sans-serif;
-  }
+
+/* Tema claro */
+.light-theme {
+  --background-color: #f8f9fa;
+  --text-color: #000000;
+  --navbar-bg: #ffffff;
+  --sobresaliente: #ffffff;
+}
+
+/* Tema oscuro */
+.dark-theme {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --navbar-bg: #2a2a2a;
+  --sobresaliente: #2a2a2a;
+}
+
+/* Aplicar variables de CSS */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Fuente', sans-serif;
+}
+
+.navbar {
+  background-color: var(--navbar-bg);
+}
+
+.sobresaliente {
+  background-color: var(--sobresaliente);
+  color: var(--text-color);
+}
+
+.text {
+  color: var(--text-color);
+}
+
+a {
+  color: #16d25d;
+}

@@ -4,7 +4,6 @@
 </div>
 
 <!-- Navbar -->
-<!-- Navbar -->
 <header class="navbar navbar-expand-lg shadow-sm px-4 py-3" style="width: 100%;">
   <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
 
@@ -38,9 +37,13 @@
       <button class="btn btn-outline-secondary" (click)="toggleTheme()">
         <i [ngClass]="theme === 'light-theme' ? 'bi bi-moon' : 'bi bi-sun'"></i>
       </button>
-      
-    </div>
-
+    </form>
+    <span *ngIf="nombreUsuario" class="nav-link fw-bold">
+        Bienvenido, {{ nombreUsuario.nombre }}
+    </span>
+    <button class="btn btn-outline-secondary" (click)="toggleTheme()">
+      <i [ngClass]="theme === 'light-theme' ? 'bi bi-moon' : 'bi bi-sun'"></i>
+    </button>
   </div>
 </header>
 
@@ -49,6 +52,8 @@
 <app-player></app-player>
 
 <!-- Footer -->
+<footer class="bg-dark text-white py-5 px-4">
+  <div class="container" style="margin-bottom: 100px;">
     <div class="row gy-4">
       <div class="col-12 col-md-3">
         <h3>Exclusive</h3>

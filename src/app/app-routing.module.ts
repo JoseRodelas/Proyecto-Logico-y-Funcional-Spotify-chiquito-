@@ -5,9 +5,7 @@ import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { CallbackComponent } from './pages/callback/callback.component';
-
 import { AuthGuard } from './guards/auth.guard';
-
 
 const routes: Routes = [
   {path: 'about', component: AboutComponent},

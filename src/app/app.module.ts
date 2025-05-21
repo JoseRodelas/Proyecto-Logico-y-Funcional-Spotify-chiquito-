@@ -16,7 +16,6 @@ import { CallbackComponent } from './pages/callback/callback.component';
 import { PlayerComponent } from './pages/spotify-player/spotify-player.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

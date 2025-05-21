@@ -19,12 +19,16 @@
   gap: 10px;
   flex: 1 1 100%;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .track-info img {
   width: 50px;
   height: 50px;
   border-radius: 4px;
+  justify-content: center;
+    flex-direction: column; /* Apila imagen y detalles verticalmente */
+    text-align: center;
 }
 
 .track-details {
@@ -47,17 +51,18 @@
   gap: 40px;
   flex: 1 1 100%;
   margin-top: 8px;
+  box-sizing: border-box;
 }
 
 .controls i {
-  font-size: 24px;
-  max-width: 90%;
+  font-size: 38px;
   cursor: pointer;
 }
 
 .progress-container {
   width: 100%;
   margin-top: 6px;
+  box-sizing: border-box;
 }
 
 .progress-bar {
@@ -102,17 +107,16 @@
 
   .progress-container {
     flex: 0 0 100%;
-    max-width: 90%;
+    max-width: 100%;
     margin-top: 0;
   }
 
   .device {
     flex: 0 0 20%;
     max-width: 20%;
-    justify-content: flex-end;
   }
-  
 }
+
 .center-section {
   display: flex;
   flex-direction: column;
@@ -120,6 +124,7 @@
   flex: 1 1 100%;
   max-width: 100%;
   margin-top: 8px;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -129,4 +134,3 @@
     margin-top: 0;
   }
 }
-

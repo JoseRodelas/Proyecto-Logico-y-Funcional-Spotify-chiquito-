@@ -1,6 +1,19 @@
+ /* Centrar el logo solo en pantallas pequeñas */
+.logo-spotify {
+  width: 60%;
+  max-width: 180px;
+  display: block;
+  margin: 0 auto;
+}
 
+@media (min-width: 992px) {
+  .logo-spotify {
+    margin: 0;
+  }
+}
 .signup-image img {
     max-width: 100%;
     width: 400px;
   }
+  
 

@@ -15,7 +15,7 @@ declare global {
       current_track: {
         name: string;
         album: { images: { url: string }[] };
-        artists: { name: string }[]; 
+        artists: { name: string }[];
       };
     };
   }

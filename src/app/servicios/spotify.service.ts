@@ -48,13 +48,13 @@ export class SpotifyService {
 
   // 1. Canciones guardadas (favoritos)
   getFavoritos(): Observable<any[]> {
-    return this.http.get(`${this.baseUrl}/me/tracks?limit=50`, { headers: this.headers })
+    return this.http.get(`${this.baseUrl}/me/tracks?limit=6`, { headers: this.headers })
       .pipe(map((res: any) => res.items.map((item: any) => item.track))); // Extrae solo la canción
   }
 
   // 2. Música por categoría
   getMusicaPorCategoria(categoriaId: string): Observable<any[]> {
-    return this.http.get(`${this.baseUrl}/browse/categories/${categoriaId}?limit=30`, { headers: this.headers })
+    return this.http.get(`${this.baseUrl}/browse/categories/${categoriaId}?limit=5`, { headers: this.headers })
       .pipe(map((res: any) => res.playlists.items)); // Devuelve playlists relacionadas a la categoría
   }
 

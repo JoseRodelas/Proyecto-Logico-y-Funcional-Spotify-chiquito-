@@ -19,7 +19,7 @@ export class SpotifyAuthService {
       `&redirect_uri=${encodeURIComponent(this.redirectUri)}` +
       `&scope=${encodeURIComponent(this.scopes)}` +
       `&state=${encodeURIComponent(state)}` +
-      `&show_dialog=true`; 
+      `&show_dialog=true`; // <- importante
 
 
     localStorage.setItem('spotify_auth_state', state);
@@ -55,7 +55,7 @@ export class SpotifyAuthService {
 
     this.http.get('https://api.spotify.com/v1/me', { headers }).subscribe({
       next: (perfil: any) => {
-        console.log('Perfil de Spotify recibido:', perfil); 
+        console.log('Perfil de Spotify recibido:', perfil); // Asegúrate de que el perfil se recibe correctamente
         const usuario = {
           nombre: perfil.display_name,
           correo: perfil.email,
@@ -67,7 +67,7 @@ export class SpotifyAuthService {
         this.sesionService.iniciarSesion(usuario);
       },
       error: (err) => {
-        console.error('Error al obtener el perfil de Spotify', err);  
+        console.error('Error al obtener el perfil de Spotify', err);  // Agrega más información sobre el error
         alert('Error al obtener el perfil de Spotify');
       }
     });

@@ -1,0 +1,61 @@
+.container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.text-decorativo {
+  color: #16d25d;
+}
+
+.btonver {
+  background-color: #16d25d;
+  color: white;
+  border: none;
+}
+
+.btonver:hover {
+  background-color: #04963c;
+  color: white;
+  border: none;
+}
+
+.product-card {
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.image-wrapper img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.play-button {
+  position: absolute;
+  bottom: 18px;
+  right: 8px;
+  background-color: #16d25d;
+  color: white;
+  border-radius: 50%;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.image-wrapper:hover .play-button {
+  opacity: 1;
+}

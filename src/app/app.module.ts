@@ -14,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
 import { CallbackComponent } from './pages/callback/callback.component';
 import { PlayerComponent } from './pages/spotify-player/spotify-player.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PlayerComponent } from './pages/spotify-player/spotify-player.component
     LoginComponent,
     CallbackComponent,
     PlayerComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,

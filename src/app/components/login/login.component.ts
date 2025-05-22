@@ -68,7 +68,7 @@ export class LoginComponent {
       `&scope=${scopes}` +
       `&redirect_uri=${redirectUri}` +
       `&state=${state}` +
-      `&show_dialog=true`; 
+      `&show_dialog=true`; // ← aquí lo agregas
   }
 
 

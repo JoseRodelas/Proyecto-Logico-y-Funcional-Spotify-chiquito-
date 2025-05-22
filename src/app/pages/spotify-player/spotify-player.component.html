@@ -15,11 +15,18 @@
       <i class="bi" [ngClass]="is_paused ? 'bi-play-circle-fill' : 'bi-pause-circle-fill'" (click)="togglePlayback()"></i>
       <i class="bi bi-skip-forward-fill" (click)="nextTrack()"></i>
     </div>
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress" [style.width.%]="(position / duration) * 100"></div>
-      </div>
+<div class="progress-container" style="display: flex; align-items: center; gap: 10px;">
+  <span style="color: white; font-size: 0.85rem; min-width: 40px;">{{ msToTime(position) }}</span>
+
+  <div class="progress-bar" style="flex: 1; position: relative; height: 4px; background-color: #404040; border-radius: 2px; overflow: hidden;">
+    <div class="progress" [style.width.%]="duration > 0 ? (position / duration) * 100 : 0"
+         style="height: 100%; background-color: #1db954; transition: width 0.2s linear;">
     </div>
+  </div>
+
+  <span style="color: white; font-size: 0.85rem; min-width: 40px; text-align: right;">{{ msToTime(duration) }}</span>
+</div>
+
   </div>
 
   <!-- Parte derecha: dispositivo -->

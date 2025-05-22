@@ -46,19 +46,23 @@ export class SpotifyService {
       .pipe(map((res: any) => res.items));
   }
 
-  // 1. Canciones guardadas (favoritos)
   getFavoritos(): Observable<any[]> {
     return this.http.get(`${this.baseUrl}/me/tracks?limit=50`, { headers: this.headers })
-      .pipe(map((res: any) => res.items.map((item: any) => item.track))); // Extrae solo la canción
+      .pipe(map((res: any) => res.items.map((item: any) => item.track)));
   }
 
-  // 2. Música por categoría
   getMusicaPorCategoria(categoriaId: string): Observable<any[]> {
     return this.http.get(`${this.baseUrl}/browse/categories/${categoriaId}?limit=30`, { headers: this.headers })
-      .pipe(map((res: any) => res.playlists.items)); // Devuelve playlists relacionadas a la categoría
+      .pipe(map((res: any) => res.playlists.items));
   }
 
-  // Reproducir musica
+  // 🔍 Buscar canciones por texto
+  buscarCanciones(texto: string): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/search?q=${encodeURIComponent(texto)}&type=track&limit=4`, { headers: this.headers })
+      .pipe(map((res: any) => res.tracks.items));
+  }
+
+  // ▶️ Reproducir canción (por URI)
   reproducirCancion(uri: string): Observable<any> {
     const body = {
       uris: [uri]
@@ -66,7 +70,6 @@ export class SpotifyService {
     return this.http.put(`${this.baseUrl}/me/player/play`, body, { headers: this.headers });
   }
 
-  // Reproducir álbum
   reproducirAlbum(uri: string): Observable<any> {
     const body = {
       context_uri: uri

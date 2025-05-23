@@ -55,7 +55,7 @@ export class LoginComponent {
 
   loginConSpotify() {
     const clientId = environment.spotifyClientId;
-    const redirectUri = environment.uri; 
+    const redirectUri = environment.redirectUri;
     const scopes = environment.scopes;
     const state = this.generateRandomState(16);
 

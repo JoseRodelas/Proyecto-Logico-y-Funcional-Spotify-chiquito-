@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+
+import { SesionService } from '../../servicios/sesion.service';
 
 declare global {
   interface Window {
@@ -24,12 +25,18 @@ export class PlayerComponent implements OnInit, OnDestroy {
   isSyncingFromAPI: boolean = false;
   deviceName: string = '';
 
-  constructor(private cookieService: CookieService) {}
+  usuarioLogueado : any = null;
+
+  constructor(private sesionService: SesionService) {}
 
   ngOnInit(): void {
     this.loadSpotifySDK();
     this.updatePlaybackStatus();
     this.fincancion();
+
+    this.sesionService.usuario$.subscribe(usuario => {
+      this.usuarioLogueado = !!usuario;
+    });
   }
 
   ngOnDestroy(): void {
@@ -40,25 +47,21 @@ export class PlayerComponent implements OnInit, OnDestroy {
     return this.current_track?.artists?.map((artist: any) => artist.name).join(', ') || '';
   }
 
-  getTokenFromCookie(): string {
-    const usuarioCookie = this.cookieService.get('usuario');
-    try {
-      const usuario = JSON.parse(usuarioCookie);
-      return usuario.token || '';
-    } catch (e) {
-      console.error('No se pudo leer el token desde la cookie usuario', e);
-      return '';
-    }
-  }
-
   loadSpotifySDK(): void {
-    const script = document.createElement('script');
-    script.src = 'https://sdk.scdn.co/spotify-player.js';
-    script.async = true;
-    document.body.appendChild(script);
+    if(this.usuarioLogueado)
+    {
+      const script = document.createElement('script');
+      script.src = 'https://sdk.scdn.co/spotify-player.js';
+      script.async = true;
+      document.body.appendChild(script);
 
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      let token = this.getTokenFromCookie();
+      window.onSpotifyWebPlaybackSDKReady = () => {
+      const token = this.sesionService.obtenerToken();
+
+      if (!token) {
+        console.error('No se pudo obtener el token para inicializar Spotify Player');
+        return;
+      }
 
       this.player = new window.Spotify.Player({
         name: 'My Spotify Player',
@@ -81,7 +84,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.duration = state.duration;
         this.is_paused = state.paused;
 
-        // Limpiar intervalos si el estado cambia
         clearInterval(this.interval);
         if (!this.is_paused) {
           this.setupProgress();
@@ -90,12 +92,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
       this.player.connect();
     };
+    }
+    
   }
 
   // Método para actualizar el estado de la canción desde la API
   updatePlaybackStatus(): void {
     this.interval = setInterval(() => {
-      if (!this.isSyncingFromAPI) {
+      if (!this.isSyncingFromAPI && this.usuarioLogueado) {
         this.isSyncingFromAPI = true;
         this.getCurrentPlayback().finally(() => {
           this.isSyncingFromAPI = false;
@@ -106,8 +110,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   // Ahora getCurrentPlayback devuelve una promesa
   getCurrentPlayback(): Promise<void> {
-    const usuarioCookie = this.cookieService.get('usuario');
-    let token = this.getTokenFromCookie();
+    let token = this.sesionService.obtenerToken();
 
     return fetch('https://api.spotify.com/v1/me/player', {
       headers: {
@@ -139,7 +142,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   setupProgress(): void {
     this.interval = setInterval(() => {
-      if (!this.is_paused && this.position < this.duration) {
+      if (!this.is_paused && this.position < this.duration && this.usuarioLogueado) {
         this.position += 1000;
       } else {
         clearInterval(this.interval);
@@ -166,7 +169,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   nextTrack(): void {
-    const token = this.getTokenFromCookie();
+    let token = this.sesionService.obtenerToken();
     fetch('https://api.spotify.com/v1/me/player/next', {
       method: 'POST',
       headers: {
@@ -178,7 +181,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   previousTrack(): void {
-    const token = this.getTokenFromCookie();
+    let token = this.sesionService.obtenerToken();
     fetch('https://api.spotify.com/v1/me/player/previous', {
       method: 'POST',
       headers: {
@@ -205,7 +208,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   resumeTrack(): void {
-    const token = this.getTokenFromCookie();
+    let token = this.sesionService.obtenerToken();
     fetch('https://api.spotify.com/v1/me/player/play', {
       method: 'PUT',
       headers: {
@@ -220,7 +223,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   togglePlayback(): void {
-    const token = this.getTokenFromCookie();
+    let token = this.sesionService.obtenerToken();
 
     const url = this.is_paused
       ? 'https://api.spotify.com/v1/me/player/play'

@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {path: 'login', component: LoginComponent },
   { path: 'callback', component: CallbackComponent },
-  { path: 'favorites', component:FavoritesComponent},
+  { path: 'favorites', component:FavoritesComponent, canActivate: [AuthGuard]},
   { path: '', redirectTo: '/login', pathMatch: 'full' } 
 ];
 

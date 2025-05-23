@@ -26,8 +26,8 @@ jobs:
           echo "export const environment = {" > src/environments/environment.ts
           echo "  production: true," >> src/environments/environment.ts
           echo "  spotifyClientId: '${{ secrets.SPOTIFY_CLIENT_ID }}'," >> src/environments/environment.ts
-          echo "  redirectUri: '${{ secrets.SPOTIFY_REDIRECT_URI }}'" >> src/environments/environment.ts
-          echo "  scopes: '${{ secrets.SPOTIFY_SCOPES }}'" >> src/environments/environment.ts
+          echo "  redirectUri: '${{ secrets.SPOTIFY_REDIRECT_URI }}'," >> src/environments/environment.ts
+          echo "  scopes: '${{ secrets.SPOTIFY_SCOPES }}'," >> src/environments/environment.ts
           echo "  uri: '${{ secrets.SPOTIFY_URI }}'" >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
           

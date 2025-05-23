@@ -19,12 +19,12 @@ export class SpotifyAuthService {
       `&redirect_uri=${encodeURIComponent(this.redirectUri)}` +
       `&scope=${encodeURIComponent(this.scopes)}` +
       `&state=${encodeURIComponent(state)}` +
-      `&show_dialog=true`; // <- importante
+      `&show_dialog=true`;
 
 
     localStorage.setItem('spotify_auth_state', state);
-    console.log('Scope enviado:', this.scopes);
-    console.log('URL de autorización:', url);
+    //console.log('Scope enviado:', this.scopes);
+    //console.log('URL de autorización:', url);
     
     alert('Error en la autenticación con Spotify');
     window.location.href = url;
@@ -44,7 +44,7 @@ export class SpotifyAuthService {
 
     localStorage.removeItem('spotify_auth_state');
     this.obtenerPerfilSpotify(accessToken);
-    console.log('Access Token recibido:', accessToken);
+    //console.log('Access Token recibido:', accessToken);
 
   }
 
@@ -53,9 +53,9 @@ export class SpotifyAuthService {
       Authorization: `Bearer ${accessToken}`
     });
 
-    this.http.get('https://api.spotify.com/v1/me', { headers }).subscribe({
+    this.http.get(`${environment.uri}/me`, { headers }).subscribe({
       next: (perfil: any) => {
-        console.log('Perfil de Spotify recibido:', perfil); // Asegúrate de que el perfil se recibe correctamente
+        //console.log('Perfil de Spotify recibido:', perfil); // Asegúrate de que el perfil se recibe correctamente
         const usuario = {
           nombre: perfil.display_name,
           correo: perfil.email,

@@ -28,7 +28,8 @@ jobs:
           echo "  spotifyClientId: '${{ secrets.SPOTIFY_CLIENT_ID }}'," >> src/environments/environment.ts
           echo "  redirectUri: '${{ secrets.SPOTIFY_REDIRECT_URI }}'," >> src/environments/environment.ts
           echo "  scopes: '${{ secrets.SPOTIFY_SCOPES }}'," >> src/environments/environment.ts
-          echo "  uri: '${{ secrets.SPOTIFY_URI }}'" >> src/environments/environment.ts
+          echo "  uri: '${{ secrets.SPOTIFY_URI }}'," >> src/environments/environment.ts
+          echo "  secret_key: '${{ secrets.SECRET_KEY }}'," >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
           
       - name: Build And Deploy

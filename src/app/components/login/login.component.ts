@@ -55,7 +55,7 @@ export class LoginComponent {
 
   loginConSpotify() {
     const clientId = environment.spotifyClientId;
-    const redirectUri = encodeURIComponent('http://localhost:4200/callback'); 
+    const redirectUri = environment.uri; 
     const scopes = environment.scopes;
     const state = this.generateRandomState(16);
 

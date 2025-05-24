@@ -1,6 +1,6 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { SpotifyService } from './servicios/spotify.service'; // Asegúrate que está importado
+import { SpotifyService } from './servicios/spotify.service';
 import { SesionService } from './servicios/sesion.service';
 
 @Component({
@@ -15,11 +15,14 @@ export class AppComponent implements OnInit {
   textoBusqueda: string = '';
   resultadosBusqueda: any[] = [];
 
+  @ViewChild('buscadorContainer') buscadorContainer!: ElementRef;
+
   constructor(
     private sesionService: SesionService,
     private router: Router,
     private renderer: Renderer2,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private eRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -53,9 +56,11 @@ export class AppComponent implements OnInit {
     this.nombreUsuario = null;
   }
 
-  // 🎯 Buscar canciones con texto
   buscarCanciones(): void {
-    if (!this.textoBusqueda.trim()) return;
+    if (!this.textoBusqueda.trim()) {
+      this.resultadosBusqueda = [];
+      return;
+    }
 
     this.spotifyService.buscarCanciones(this.textoBusqueda.trim())
       .subscribe(resultados => {
@@ -63,17 +68,21 @@ export class AppComponent implements OnInit {
       });
   }
 
-  // ▶️ Reproducir canción
-reproducir(uri: string): void {
-  this.spotifyService.reproducirCancion(uri).subscribe({
-    next: () => {
+  reproducir(uri: string): void {
+    this.spotifyService.reproducirCancion(uri).subscribe({
+      next: () => {},
+      error: err => {
+        console.error('❌ Error al reproducir:', err);
+        alert('❌ No se pudo reproducir. Asegúrate de tener Spotify abierto en algún dispositivo.');
+      }
+    });
+  }
 
-    },
-    error: err => {
-      console.error('❌ Error al reproducir:', err);
-      alert('❌ No se pudo reproducir. Asegúrate de tener Spotify abierto en algún dispositivo.');
+  // Detectar clic fuera del buscador
+  @HostListener('document:click', ['$event'])
+  clickFuera(event: Event): void {
+    if (this.buscadorContainer && !this.buscadorContainer.nativeElement.contains(event.target)) {
+      this.resultadosBusqueda = [];
     }
-  });
-}
-
+  }
 }

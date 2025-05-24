@@ -55,9 +55,11 @@
           <div class="text-muted small text-truncate" style="max-width: 150px;">{{ cancion.artists[0]?.name }}</div>
         </div>
       </div>
-      <button class="btn btn-sm btn-outline-success" (click)="reproducir(cancion.uri)">
-        ▶️
-      </button>
+        <button (click)="reproducir(cancion.uri)"
+          class="btn btn-success btn-sm px-3 py-1"
+          style="background-color: #1DB954; border: none; border-radius: 20px; font-weight: bold;">
+            ▶
+        </button>
     </div>
   </div>
 </div>

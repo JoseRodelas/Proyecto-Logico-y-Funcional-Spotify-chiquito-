@@ -1,0 +1,21 @@
+<!-- Mostrar categorías en forma de mosaico 4x4 -->
+<div *ngIf="!categoriaSeleccionada" class="categorias-grid">
+  <div *ngFor="let cat of categorias" class="categoria-card" (click)="seleccionarCategoria(cat)">
+    <img [src]="cat.icons[0]?.url" alt="{{ cat.name }}" />
+    <p>{{ cat.name }}</p>
+  </div>
+</div>
+
+<!-- Mostrar canciones si se ha seleccionado una categoría -->
+<div *ngIf="categoriaSeleccionada">
+  <button (click)="regresar()">🔙 Regresar</button>
+  <h3>Canciones de {{ categoriaSeleccionada.name }}:</h3>
+
+  <div *ngIf="cargando">Cargando canciones...</div>
+  
+  <ul *ngIf="!cargando">
+    <li *ngFor="let track of canciones">
+      🎵 {{ track.name }} - {{ track.artists[0]?.name }}
+    </li>
+  </ul>
+</div>

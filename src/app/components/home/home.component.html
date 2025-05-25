@@ -172,5 +172,39 @@
     </div>
   </div>
   
+  <h2>Categorías</h2>
+      <div class="categorias-grid">
+        <div *ngFor="let cat of categorias" class="categoria-card" 
+            (click)="categoriaSeleccionada?.id === cat.id ? cambiocategoria() : seleccionarCategoria(cat)">
+          <img [src]="cat.icons[0]?.url" alt="{{cat.name}}" />
+          <p>{{ cat.name }}</p>
+        </div>
+      </div>
+
+      <div *ngIf="categoriaSeleccionada">
+        <h3>{{ categoriaSeleccionada.name }} - Canciones</h3>
+        
+        <div *ngIf="cargando" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+        
+        <div *ngIf="!cargando" class="canciones-scroll">
+          <div class="cancion-card" *ngFor="let cancion of canciones">
+            <div class="play-button" (click)="reproducir(cancion.uri)">
+              <i class="bi bi-play-fill"></i>
+            </div>
+            <img [src]="cancion.album.images[0]?.url" alt="{{ cancion.name }}" />
+            <p>{{ cancion.name }}</p>
+            <small>{{ cancion.artists[0]?.name }}</small>
+          </div>
+        </div>
+        
+        <div class="text-center mt-4">
+          <button class="btn btonver">Ver Toda La Música</button>
+        </div>
+      </div>
+
 
 </body>

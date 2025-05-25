@@ -26,12 +26,19 @@ export class HomeComponent implements OnInit {
   podcastsMostrados: any[] = [];
   podcastsTotales: any[] = [];
 
+  categorias: any[] = [];
+  categoriaSeleccionada: any = null;
+  cargando = false;
+
   constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit(): void {
     this.obtenerTopTracks();
     this.obtenerNuevosLanzamientos();
     this.obtenerFavoritos();
+    this.spotifyService.getCategorias().subscribe(data => {
+      this.categorias = data.categories.items.slice(0, 20); // Obtener solo las primeras 20 categorías
+    });
   }
 
   obtenerTopTracks(): void {
@@ -100,5 +107,38 @@ export class HomeComponent implements OnInit {
     this.nuevascancionesMostradas = this.nuevascancionesTotales.slice(0, nuevaCantidad);
   }
 
+  seleccionarCategoria(categoria: any) {
+    this.categoriaSeleccionada = categoria;
+    this.canciones = [];
+    this.cargando = true;
+
+    this.spotifyService.getPlaylistsPorCategoria(categoria.id).subscribe(res => {
+      const playlists: any[] = res.playlists.items.slice(0, 4); // Tomar solo 4 playlists
+      let pendientes = playlists.length;
+
+      playlists.forEach(playlist => {
+        this.spotifyService.getCancionesDePlaylist(playlist.id).subscribe(tracksRes => {
+          const cancionesPlaylist = tracksRes.items.map((item: any) => item.track);
+          this.canciones.push(...cancionesPlaylist);
+
+          pendientes--;
+          if (pendientes === 0) {
+            this.cargando = false;
+          }
+        }, error => {
+          console.error('Error al cargar canciones:', error);
+          pendientes--;
+          if (pendientes === 0) {
+            this.cargando = false;
+          }
+        });
+      });
+    });
+  }
+
+  cambiocategoria() {
+    this.categoriaSeleccionada = null;
+    this.canciones = [];
+  }
   
 }

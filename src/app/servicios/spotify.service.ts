@@ -53,9 +53,22 @@ export class SpotifyService {
   }
 
   // 2. Música por categoría
-  getMusicaPorCategoria(categoriaId: string): Observable<any[]> {
-    return this.http.get(`${this.baseUrl}/browse/categories/${categoriaId}?limit=30`, { headers: this.headers })
-      .pipe(map((res: any) => res.playlists.items)); // Devuelve playlists relacionadas a la categoría
+  getCategorias(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/browse/categories?limit=20`, {
+      headers: this.headers
+    });
+  }
+
+  getPlaylistsPorCategoria(categoryId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/browse/categories/${categoryId}/playlists?limit=3`, {
+      headers: this.headers
+    });
+  }
+
+  getCancionesDePlaylist(playlistId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/playlists/${playlistId}/tracks?limit=30`, {
+      headers: this.headers
+    });
   }
 
   // Reproducir musica

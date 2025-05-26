@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { SesionService } from '../../servicios/sesion.service';
+import { environment } from 'src/environments/environment';
 
 declare global {
   interface Window {
@@ -27,6 +28,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   usuarioLogueado : any = null;
 
+  conexionSpoty = this.sesionService.obtenerSesionS();
+
   constructor(private sesionService: SesionService) {}
 
   ngOnInit(): void {
@@ -48,7 +51,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   loadSpotifySDK(): void {
-    if(this.usuarioLogueado)
+    if(this.conexionSpoty)
     {
       const script = document.createElement('script');
       script.src = 'https://sdk.scdn.co/spotify-player.js';
@@ -99,7 +102,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   // Método para actualizar el estado de la canción desde la API
   updatePlaybackStatus(): void {
     this.interval = setInterval(() => {
-      if (!this.isSyncingFromAPI && this.usuarioLogueado) {
+      if (!this.isSyncingFromAPI && this.conexionSpoty) {
         this.isSyncingFromAPI = true;
         this.getCurrentPlayback().finally(() => {
           this.isSyncingFromAPI = false;
@@ -112,12 +115,24 @@ export class PlayerComponent implements OnInit, OnDestroy {
   getCurrentPlayback(): Promise<void> {
     let token = this.sesionService.obtenerToken();
 
-    return fetch('https://api.spotify.com/v1/me/player', {
+    return fetch(`${environment.uri}/me/player`, {
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': `Bearer ${token}`
       }
     })
-      .then(res => res.json())
+      .then(async res => {
+        if (res.status === 401) {
+          console.warn('Token expirado. Intentando refrescar...');
+          const nuevoToken = await this.sesionService.refreshAccessToken();
+          if (nuevoToken) {
+            return fetch(`${environment.uri}/me/player`, {
+              headers: { 'Authorization': `Bearer ${nuevoToken}` }
+            });
+          }
+        }
+        return res;
+      })
+      .then(res => res?.json())
       .then(data => {
         if (data && data.item) {
           this.current_track = data.item;
@@ -125,10 +140,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
           this.duration = data.item.duration_ms;
           this.is_paused = !data.is_playing;
           this.deviceName = data.device.name;
-
-          if (!this.is_paused) {
-            //this.setupProgress();
-          }
         }
       })
       .catch(error => {
@@ -142,7 +153,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   setupProgress(): void {
     this.interval = setInterval(() => {
-      if (!this.is_paused && this.position < this.duration && this.usuarioLogueado) {
+      if (!this.is_paused && this.position < this.duration && this.conexionSpoty) {
         this.position += 1000;
       } else {
         clearInterval(this.interval);

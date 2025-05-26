@@ -114,6 +114,11 @@ export class SpotifyService {
     
   }
 
+  buscarCanciones(texto: string): Observable<any[]> {
+    return this.http.get(`${environment.uri}/search?q=${encodeURIComponent(texto)}&type=track&limit=4`, { headers: this.headers })
+      .pipe(map((res: any) => res.tracks.items));
+  }
+
   // Reproducir musica
   reproducirCancion(uri: string): Observable<any> {
     if(this.conexionSpoty)

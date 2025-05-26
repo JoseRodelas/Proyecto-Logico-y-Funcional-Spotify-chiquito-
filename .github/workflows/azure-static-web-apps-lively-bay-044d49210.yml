@@ -30,6 +30,7 @@ jobs:
           echo "  scopes: '${{ secrets.SPOTIFY_SCOPES }}'," >> src/environments/environment.ts
           echo "  uri: '${{ secrets.SPOTIFY_URI }}'," >> src/environments/environment.ts
           echo "  secret_key: '${{ secrets.SECRET_KEY }}'," >> src/environments/environment.ts
+          echo "  spotifyClientSecret: '${{ secrets.SPOTIFY_CLIENT_SECRET }}'," >> src/environments/environment.ts
           echo "};" >> src/environments/environment.ts
           
       - name: Build And Deploy

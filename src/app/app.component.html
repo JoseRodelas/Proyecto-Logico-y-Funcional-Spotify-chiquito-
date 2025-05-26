@@ -24,13 +24,39 @@
     </nav>
 
     <!-- Buscador + Modo oscuro + Nombre de usuario -->
-    <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0" style="max-width: 100%;">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Buscar" />
+  <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0" style="max-width: 100%; position: relative;">
+    <!-- Contenedor del buscador -->
+    <div #buscadorContainer style="position: relative; width: 250px;">
+      <form class="d-flex" (submit)="buscarCanciones(); $event.preventDefault()">
+        <input class="form-control me-2 w-100" type="search" [(ngModel)]="textoBusqueda" name="busqueda" placeholder="Buscar canciones..." />
         <button class="btn btn-outline-secondary" type="submit">
           <i class="fas fa-search"></i>
         </button>
       </form>
+
+      <!-- Dropdown flotante de resultados -->
+      <div *ngIf="resultadosBusqueda && resultadosBusqueda.length > 0"
+          class="list-group shadow-sm mt-1"
+          style="position: absolute; top: 100%; left: 0; width: 100%; z-index: 999;">
+        <div *ngFor="let cancion of resultadosBusqueda"
+            class="list-group-item d-flex justify-content-between align-items-center small">
+          <div class="d-flex align-items-center gap-2">
+            <img [src]="cancion.album.images[0]?.url" alt="Portada" class="rounded"
+                style="width: 40px; height: 40px; object-fit: cover;">
+            <div>
+              <div class="fw-bold text-truncate" style="max-width: 100px;">{{ cancion.name }}</div>
+              <div class="text-muted small text-truncate" style="max-width: 100px;">{{ cancion.artists[0]?.name }}</div>
+            </div>
+          </div>
+          <button (click)="reproducir(cancion.uri)"
+                  class="btn btn-success btn-sm px-3 py-1"
+                  style="background-color: #1DB954; border: none; border-radius: 20px; font-weight: bold;">
+            ▶
+          </button>
+        </div>
+      </div>
+    </div>
+
 
       <span *ngIf="nombreUsuario" class="fw-bold ms-2">
         Bienvenido, {{ nombreUsuario.nombre }}
@@ -47,7 +73,7 @@
 
 <router-outlet></router-outlet>
 
-<app-player *ngIf="mostrarPlayer"></app-player>
+<app-player></app-player>
 
 <!-- Footer -->
 <footer class="bg-dark text-white py-5 px-4">

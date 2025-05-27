@@ -62,7 +62,8 @@ export class SpotifyAuthService {
           id: perfil.id,
           imagen: perfil.images?.[0]?.url,
           token: accessToken,
-          origen: 'spotify'
+          origen: 'spotify',
+          spotifyConnected: true
         };
         this.sesionService.iniciarSesion(usuario);
       },

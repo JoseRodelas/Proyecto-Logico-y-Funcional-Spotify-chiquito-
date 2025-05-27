@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { SesionService } from '../../servicios/sesion.service';
+import { environment } from 'src/environments/environment';
 
 declare global {
   interface Window {
@@ -48,7 +49,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   }
 
   loadSpotifySDK(): void {
-    if(this.usuarioLogueado)
+    if(this.sesionService.obtenerSesionS())
     {
       const script = document.createElement('script');
       script.src = 'https://sdk.scdn.co/spotify-player.js';
@@ -99,7 +100,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
   // Método para actualizar el estado de la canción desde la API
   updatePlaybackStatus(): void {
     this.interval = setInterval(() => {
-      if (!this.isSyncingFromAPI && this.usuarioLogueado) {
+      if (!this.isSyncingFromAPI && this.sesionService.obtenerSesionS() && this.usuarioLogueado) {
         this.isSyncingFromAPI = true;
         this.getCurrentPlayback().finally(() => {
           this.isSyncingFromAPI = false;
@@ -108,32 +109,52 @@ export class PlayerComponent implements OnInit, OnDestroy {
     }, 3000); // actualiza cada 3 segundos
   }
 
-  // Ahora getCurrentPlayback devuelve una promesa
   getCurrentPlayback(): Promise<void> {
-    let token = this.sesionService.obtenerToken();
+    const token = this.sesionService.obtenerToken();
 
-    return fetch('https://api.spotify.com/v1/me/player', {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.item) {
-          this.current_track = data.item;
-          this.position = data.progress_ms;
-          this.duration = data.item.duration_ms;
-          this.is_paused = !data.is_playing;
-          this.deviceName = data.device.name;
+    if (!token) {
+      console.error('No hay token disponible');
+      return Promise.resolve(); // O podrías lanzar un error o cerrar sesión
+    }
 
-          if (!this.is_paused) {
-            //this.setupProgress();
-          }
+    const hacerPeticion = (token: string): Promise<void> => {
+      return fetch('https://api.spotify.com/v1/me/player', {
+        headers: {
+          'Authorization': 'Bearer ' + token
         }
       })
-      .catch(error => {
-        console.error('Error al obtener el estado actual:', error);
-      });
+        .then(async res => {
+          if (res.status === 401) {
+            const nuevoToken = await this.sesionService.refreshAccessToken();
+            if (typeof nuevoToken === 'string') {
+              return hacerPeticion(nuevoToken);
+            } else {
+              console.error('No se pudo refrescar el token');
+              return;
+            }
+          }
+
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.item) {
+            this.current_track = data.item;
+            this.position = data.progress_ms;
+            this.duration = data.item.duration_ms;
+            this.is_paused = !data.is_playing;
+            this.deviceName = data.device.name;
+
+            if (!this.is_paused) {
+              // this.setupProgress();
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error al obtener el estado actual:', error);
+        });
+    };
+
+    return hacerPeticion(token);
   }
 
   togglePlay(): void {
@@ -142,7 +163,7 @@ export class PlayerComponent implements OnInit, OnDestroy {
 
   setupProgress(): void {
     this.interval = setInterval(() => {
-      if (!this.is_paused && this.position < this.duration && this.usuarioLogueado) {
+      if (!this.is_paused && this.position < this.duration && this.sesionService.obtenerSesionS()) {
         this.position += 1000;
       } else {
         clearInterval(this.interval);

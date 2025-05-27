@@ -45,7 +45,7 @@ export class SpotifyPlayerService {
 
     window.onSpotifyWebPlaybackSDKReady = () => {
       this.player = new window.Spotify.Player({
-        name: 'Mi Reproductor Web',
+        name: 'Reproductor Angular/Azure',
         getOAuthToken: (cb: (token: string) => void) => cb(token),
         volume: 0.8
       });

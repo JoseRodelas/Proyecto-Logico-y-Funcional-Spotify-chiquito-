@@ -24,13 +24,57 @@
     </nav>
 
     <!-- Buscador + Modo oscuro + Nombre de usuario -->
-    <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0" style="max-width: 100%;">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Buscar" />
-        <button class="btn btn-outline-secondary" type="submit">
-          <i class="fas fa-search"></i>
+  <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0" style="max-width: 100%; position: relative;">
+    <!-- Contenedor del buscador -->
+    <div #buscadorContainer class="position-relative" style="max-width: 100%; width: 250px;">
+    <form class="d-flex" (submit)="buscarCanciones(); $event.preventDefault()">
+      <input
+        class="form-control me-2 flex-grow-1"
+        type="search"
+        [(ngModel)]="textoBusqueda"
+        name="busqueda"
+        placeholder="Buscar canciones..."
+      />
+      <button class="btn btn-outline-secondary" type="submit">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+
+    <!-- Dropdown flotante de resultados -->
+    <div
+      *ngIf="resultadosBusqueda && resultadosBusqueda.length > 0"
+      class="list-group shadow-sm mt-1 position-absolute start-0 w-100"
+      style="z-index: 999;"
+    >
+      <div
+        *ngFor="let cancion of resultadosBusqueda"
+        class="list-group-item d-flex justify-content-between align-items-center small"
+      >
+        <div class="d-flex align-items-center flex-grow-1 overflow-hidden" style="min-width: 0;">
+          <img
+            [src]="cancion.album.images[0]?.url"
+            alt="Portada"
+            class="rounded me-2"
+            style="width: 40px; height: 40px; object-fit: cover;"
+          />
+          <div class="text-truncate" style="min-width: 0;">
+            <div class="fw-bold text-truncate">{{ cancion.name }}</div>
+            <div class="text-muted small text-truncate">{{ cancion.artists[0]?.name }}</div>
+          </div>
+        </div>
+        <button
+          (click)="reproducir(cancion.uri)"
+          class="btn btn-success btn-sm d-flex align-items-center justify-content-center ms-2"
+          style="width: 36px; height: 36px; background-color: #1DB954; border: none; border-radius: 50%;"
+        >
+          <i class="bi bi-play-fill text-white fs-5"></i>
         </button>
-      </form>
+
+      </div>
+    </div>
+  </div>
+
+
 
       <span *ngIf="nombreUsuario" class="fw-bold ms-2">
         Bienvenido, {{ nombreUsuario.nombre }}

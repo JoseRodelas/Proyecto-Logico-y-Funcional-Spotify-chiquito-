@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SpotifyService {
-  conexionSpoty = this.sesionService.obtenerSesionS();
 
   constructor(
     private http: HttpClient,
@@ -23,7 +22,7 @@ export class SpotifyService {
   }
 
   getNuevosLanzamientos(): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/browse/new-releases?limit=24`, { headers: this.headers })
       .pipe(map((res: any) => res.albums.items));
@@ -35,7 +34,7 @@ export class SpotifyService {
   }
 
   getTopTracks(): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/me/top/tracks?limit=12`, { headers: this.headers })
       .pipe(map((res: any) => res.items));
@@ -48,7 +47,7 @@ export class SpotifyService {
   }
 
   getRecomendacionesPorArtista(artistaId: string): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/recommendations?limit=12&seed_artists=${artistaId}`, { headers: this.headers })
       .pipe(map((res: any) => res.tracks));
@@ -61,7 +60,7 @@ export class SpotifyService {
   }
 
   getRecomendacionesPorGenero(genero: string): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/recommendations?limit=12&seed_genres=${genero}`, { headers: this.headers })
       .pipe(map((res: any) => res.tracks));
@@ -74,7 +73,7 @@ export class SpotifyService {
   }
 
   getArtistasFavoritos(): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/me/top/artists?limit=5`, { headers: this.headers })
       .pipe(map((res: any) => res.items));
@@ -88,7 +87,7 @@ export class SpotifyService {
 
   // 1. Canciones guardadas (favoritos)
   getFavoritos(): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/me/tracks?limit=36`, { headers: this.headers })
       .pipe(map((res: any) => res.items.map((item: any) => item.track)));
@@ -102,7 +101,7 @@ export class SpotifyService {
 
   // 2. Música por categoría
   getMusicaPorCategoria(categoriaId: string): Observable<any[]> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       return this.http.get(`${environment.uri}/browse/categories/${categoriaId}?limit=30`, { headers: this.headers })
       .pipe(map((res: any) => res.playlists.items)); // Devuelve playlists relacionadas a la categoría
@@ -121,7 +120,7 @@ export class SpotifyService {
 
   // Reproducir musica
   reproducirCancion(uri: string): Observable<any> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       const body = {
         uris: [uri]
@@ -137,7 +136,7 @@ export class SpotifyService {
 
   // Reproducir álbum
   reproducirAlbum(uri: string): Observable<any> {
-    if(this.conexionSpoty)
+    if(this.sesionService.obtenerSesionS())
     {
       const body = {
         context_uri: uri

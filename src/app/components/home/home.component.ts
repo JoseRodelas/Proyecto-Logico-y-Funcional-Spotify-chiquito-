@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../../servicios/spotify.service';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -28,37 +30,44 @@ export class HomeComponent implements OnInit {
 
   constructor(private spotifyService: SpotifyService) { }
 
-  ngOnInit(): void {
-    this.obtenerTopTracks();
-    this.obtenerNuevosLanzamientos();
-    this.obtenerFavoritos();
+  async ngOnInit(): Promise<void> {
+    try {
+      await this.obtenerTopTracks();
+      await this.obtenerNuevosLanzamientos();
+      await this.obtenerFavoritos();
+    } catch (error) {
+      console.error('Error durante la carga inicial:', error);
+    }
   }
 
-  obtenerTopTracks(): void {
-    this.spotifyService.getTopTracks().subscribe(
-      (data) => {
-        this.topTracks = data;
-        this.topTracksMostrados = this.topTracks.slice(0, this.cancionesPorPagina);
-      },
-      (error) => console.error('Error al obtener Top Tracks', error)
-    );
+  async obtenerTopTracks(): Promise<void> {
+    try {
+      const data = await firstValueFrom(this.spotifyService.getTopTracks());
+      this.topTracks = data;
+      this.topTracksMostrados = this.topTracks.slice(0, this.cancionesPorPagina);
+    } catch (error) {
+      console.error('Error al obtener Top Tracks', error);
+    }
   }
 
-  obtenerNuevosLanzamientos(): void {
-    this.spotifyService.getNuevosLanzamientos().subscribe(
-      (data) => {this.nuevascancionesTotales = data; this.nuevascancionesMostradas = this.nuevascancionesTotales.slice(0, this.cancionesPorPagina);},
-      (error) => console.error('Error al obtener nuevos lanzamientos', error)
-    );
+  async obtenerNuevosLanzamientos(): Promise<void> {
+    try {
+      const data = await firstValueFrom(this.spotifyService.getNuevosLanzamientos());
+      this.nuevascancionesTotales = data;
+      this.nuevascancionesMostradas = this.nuevascancionesTotales.slice(0, this.cancionesPorPagina);
+    } catch (error) {
+      console.error('Error al obtener nuevos lanzamientos', error);
+    }
   }
 
-  obtenerFavoritos(): void {
-    this.spotifyService.getFavoritos().subscribe(
-      (data) => {
-        this.favoritos = data;
-        this.favoritosMostrados = this.favoritos.slice(0, this.cancionesPorPagina);
-      },
-      (error) => console.error('Error al obtener los Favoritos', error)
-    );
+  async obtenerFavoritos(): Promise<void> {
+    try {
+      const data = await firstValueFrom(this.spotifyService.getFavoritos());
+      this.favoritos = data;
+      this.favoritosMostrados = this.favoritos.slice(0, this.cancionesPorPagina);
+    } catch (error) {
+      console.error('Error al obtener los Favoritos', error);
+    }
   }
 
   reproducir(uri: string): void {

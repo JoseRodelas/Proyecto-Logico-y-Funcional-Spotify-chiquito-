@@ -47,7 +47,7 @@ export class SesionService {
 
   obtenerSesionS(): string | null {
     const usuario = this.usuarioActual;
-    return usuario?.spotifyConnected || null;
+    return usuario?.spotifyConnected || false;
   }
 
   refreshAccessToken(): Promise<string | null> {

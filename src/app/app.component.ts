@@ -1,7 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { SpotifyService } from './servicios/spotify.service';
 import { SesionService } from './servicios/sesion.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { SesionService } from './servicios/sesion.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  mostrarPlayer: boolean = false;
   nombreUsuario: any;
   theme: string = 'light-theme';
   usuarioLogueado = false;
@@ -22,7 +24,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private renderer: Renderer2,
     private spotifyService: SpotifyService,
-    private eRef: ElementRef
+    private eRef: ElementRef,
   ) {}
 
   ngOnInit(): void {
@@ -31,8 +33,18 @@ export class AppComponent implements OnInit {
       this.nombreUsuario = usuario;
     });
 
+    // Verificar si hay un tema guardado en el localStorage
     const savedTheme = localStorage.getItem('theme') || 'light-theme';
     this.setTheme(savedTheme);
+
+    // Mostrar el player solo en rutas específicas
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event) => {
+      const navEndEvent = event as NavigationEnd;
+      const rutasConPlayer = ['/home', '/favorites', '/about'];
+      this.mostrarPlayer = rutasConPlayer.includes(navEndEvent.urlAfterRedirects);
+    });
   }
 
   toggleTheme(): void {

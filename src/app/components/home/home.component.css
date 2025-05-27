@@ -51,19 +51,20 @@
       position: absolute;
       bottom: 18px;
       right: 8px;
-      background-color: #16d25d;
+      background-color: #1DB954; /* mismo verde que Spotify */
       color: white;
       border-radius: 50%;
-      width: 30%; 
-      aspect-ratio: 1 / 1;
+      width: 46px;
+      height: 46px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.8em;
+      font-size: 1.5rem; /* equivalente a fs-5 */
       opacity: 0;
       transition: opacity 0.3s ease;
       cursor: pointer;
     }
+
 
     .image-wrapper:hover .play-button {
       opacity: 1;

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { SesionService } from '../../servicios/sesion.service';
-import { environment } from 'src/environments/environment';
+
 
 declare global {
   interface Window {
@@ -102,59 +102,64 @@ export class PlayerComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       if (!this.isSyncingFromAPI && this.sesionService.obtenerSesionS() && this.usuarioLogueado) {
         this.isSyncingFromAPI = true;
-        this.getCurrentPlayback().finally(() => {
-          this.isSyncingFromAPI = false;
+
+        this.hayDispositivosActivos().then(hayDispositivos => {
+          if (hayDispositivos) {
+            this.getCurrentPlayback().finally(() => {
+              this.isSyncingFromAPI = false;
+            });
+          } else {
+            console.warn('No hay dispositivos activos de reproducción');
+            this.isSyncingFromAPI = false;
+          }
         });
+
       }
-    }, 3000); // actualiza cada 3 segundos
+    }, 3000);
   }
 
+
+  
   getCurrentPlayback(): Promise<void> {
     const token = this.sesionService.obtenerToken();
 
+    // Si no hay token, cerrar sesión directamente
     if (!token) {
-      console.error('No hay token disponible');
-      return Promise.resolve(); // O podrías lanzar un error o cerrar sesión
+      this.sesionService.refreshAccessToken();
+      return Promise.resolve();
     }
 
-    const hacerPeticion = (token: string): Promise<void> => {
-      return fetch('https://api.spotify.com/v1/me/player', {
-        headers: {
-          'Authorization': 'Bearer ' + token
+    return fetch('https://api.spotify.com/v1/me/player', {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+      .then(res => {
+        if (res.status === 401) {
+          // Token inválido o expirado
+          this.sesionService.refreshAccessToken();
+          return null;
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (!data) return; // Ya se cerró sesión por error
+
+        if (data.item) {
+          this.current_track = data.item;
+          this.position = data.progress_ms;
+          this.duration = data.item.duration_ms;
+          this.is_paused = !data.is_playing;
+          this.deviceName = data.device.name;
+
+          if (!this.is_paused) {
+            //this.setupProgress();
+          }
         }
       })
-        .then(async res => {
-          if (res.status === 401) {
-            const nuevoToken = await this.sesionService.refreshAccessToken();
-            if (typeof nuevoToken === 'string') {
-              return hacerPeticion(nuevoToken);
-            } else {
-              console.error('No se pudo refrescar el token');
-              return;
-            }
-          }
-
-          return res.json();
-        })
-        .then(data => {
-          if (data && data.item) {
-            this.current_track = data.item;
-            this.position = data.progress_ms;
-            this.duration = data.item.duration_ms;
-            this.is_paused = !data.is_playing;
-            this.deviceName = data.device.name;
-
-            if (!this.is_paused) {
-              // this.setupProgress();
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error al obtener el estado actual:', error);
-        });
-    };
-
-    return hacerPeticion(token);
+      .catch(error => {
+        console.error('Error al obtener el estado actual:', error);
+      });
   }
 
   togglePlay(): void {
@@ -266,5 +271,37 @@ export class PlayerComponent implements OnInit, OnDestroy {
     })
     .catch(err => console.error('Error al cambiar el estado de reproducción:', err));
   }
+
+  private async hayDispositivosActivos(): Promise<boolean> {
+    const token = this.sesionService.obtenerToken();
+    if (!token) {
+      this.sesionService.cerrarSesion();
+      return false;
+    }
+
+    try {
+      const res = await fetch('https://api.spotify.com/v1/me/player/devices', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (res.status === 401) {
+        this.sesionService.cerrarSesion();
+        return false;
+      }
+
+      const data = await res.json();
+      const dispositivos = data.devices || [];
+
+      // Solo consideramos dispositivos activos
+      return dispositivos.length > 0;
+
+    } catch (error) {
+      console.error('Error al verificar dispositivos:', error);
+      return false;
+    }
+  }
+
 
 }

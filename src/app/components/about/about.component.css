@@ -1,22 +1,22 @@
 .container {
-    max-width: 1200px;
-  }
+  max-width: 1200px;
+}
 
-  .card-body {
-    text-align: center;
-  }
+.card-body {
+  text-align: center;
+}
 
-  i.fab {
-    font-size: 20px;
-    color: #555;
-    cursor: pointer;
-  }
-  
-  .infocard{
-    transition: all 0.2s ease-in-out;
-  }
+i.fab {
+  font-size: 20px;
+  color: #555;
+  cursor: pointer;
+}
 
-  .infocard:hover {
-    background-color: #16d25d;
-    color: #fff;
-  }
+.infocard{
+  transition: all 0.2s ease-in-out;
+}
+
+.infocard:hover {
+  background-color: #16d25d;
+  color: #fff;
+}

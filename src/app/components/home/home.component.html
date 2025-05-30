@@ -68,7 +68,7 @@
     <div class="row g-3">
       <div *ngFor="let cancion of topTracksMostrados" class="col-6 col-md-2">
         <div class="product-card">
-          <div class="sale-badge">Top</div>
+          <div class="sale-badge">Lo mas Top</div>
           <div class="image-wrapper">
             <img [src]="cancion.album.images[0]?.url" class="img-fluid mb-2" alt="Product">
             <div class="play-button" (click)="reproducir(cancion.uri)">

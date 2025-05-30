@@ -1,106 +1,106 @@
-    body{
-        padding: 10px 0px 50px 0px;
-    }
+body{
+    padding: 10px 0px 50px 0px;
+}
 
-    .sidebar-menu {
-      border-right: 1px solid #ddd;
-      height: 100%;
-    }
-    .flash-sale-title {
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .flash-sale-timer span {
-      font-weight: bold;
-      color: #000;
-    }
+.sidebar-menu {
+  border-right: 1px solid #ddd;
+  height: 100%;
+}
+.flash-sale-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.flash-sale-timer span {
+  font-weight: bold;
+  color: #000;
+}
 
-    .sale-badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background-color: #16d25d;
-      color: white;
-      padding: 2px 6px;
-      font-size: 0.75rem;
-      border-radius: 4px;
-      z-index: 100;
-    }
-    
-    .product-card {
-      /*border: 1px solid #eee;*/
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      position: relative;
-    }
+.sale-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #16d25d;
+  color: white;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  z-index: 100;
+}
 
-    .image-wrapper {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
+.product-card {
+  /*border: 1px solid #eee;*/
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+}
 
-    .image-wrapper img {
-      width: 100%;
-      display: block;
-      border-radius: 8px;
-    }
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
 
-    .play-button {
-      position: absolute;
-      bottom: 18px;
-      right: 8px;
-      background-color: #1DB954; /* mismo verde que Spotify */
-      color: white;
-      border-radius: 50%;
-      width: 46px;
-      height: 46px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5rem; /* equivalente a fs-5 */
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      cursor: pointer;
-    }
+.image-wrapper img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.play-button {
+  position: absolute;
+  bottom: 18px;
+  right: 8px;
+  background-color: #1DB954; /* mismo verde que Spotify */
+  color: white;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem; /* equivalente a fs-5 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
 
 
-    .image-wrapper:hover .play-button {
-      opacity: 1;
-    }
-    .category-icon {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 20px 10px;
-      text-align: center;
-      transition: all 0.2s ease-in-out;
-    }
-    .category-icon:hover {
-      background-color: #16d25d;
-      color: #fff;
-    }
-    .category-icon.active {
-      background-color: #16d25d;
-      color: white;
-    }
+.image-wrapper:hover .play-button {
+  opacity: 1;
+}
+.category-icon {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px 10px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+.category-icon:hover {
+  background-color: #16d25d;
+  color: #fff;
+}
+.category-icon.active {
+  background-color: #16d25d;
+  color: white;
+}
 
-    a{
-        text-decoration: none;
-    }
+a{
+    text-decoration: none;
+}
 
-    .btonver{
-        background-color: #16d25d;
-        color: white;
-        border: none;
-    }
+.btonver{
+    background-color: #16d25d;
+    color: white;
+    border: none;
+}
 
-    .btonver:hover{
-        background-color: #04963c;
-        color: white;
-        border: none;
-    }
+.btonver:hover{
+    background-color: #04963c;
+    color: white;
+    border: none;
+}
 
-    .text-decorativo{
-        color: #16d25d;
-    }
+.text-decorativo{
+    color: #16d25d;
+}

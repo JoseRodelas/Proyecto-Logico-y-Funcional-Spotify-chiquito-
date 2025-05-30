@@ -7,17 +7,17 @@
       <div class="p-3 sobresaliente mb-3" style="height: 100%;">
         <ul class="list-unstyled">
           <li class="mb-2"><a href="music">Música</a></li>
-          <li class="mb-2"><a href="podcasts">Podcasts</a></li>
-          <li class="mb-2"><a href="events">Eventos en vivo</a></li>
           <li class="mb-2"><a href="foryou">Para ti</a></li>
           <li class="mb-2"><a href="new">Nuevos lanzamientos</a></li>
+          <li class="mb-2"><a href="events">Eventos en vivo</a></li>
+          <li class="mb-2"><a href="podcasts">Podcasts</a></li>
           <li class="mb-2"><a href="mexicanmusic">Música Mexicana</a></li>
         </ul>
       </div>
     </div>
 
     <div class="col-md-9">
-      <!-- Carousel -->
+      <!-- Banner-->
       <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <!-- Flash Sales -->
+  <!-- Nuevos Lanzamientos -->
   <div class="sobresaliente p-4 mt-4 rounded">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="flash-sale-title"><h4 class="fw-bold">Nuevos Lanzamientos</h4></div>
@@ -53,43 +53,32 @@
     <div class="text-center mt-4">
       <button *ngIf="nuevascancionesMostradas.length < nuevascancionesTotales.length" (click)="verMasTop()" class="btn btonver">Ver Más</button>
     </div>
-  </div>
-
-  <!-- Browse by Category -->
-  <div class="mt-5">
-    <h5 class="text-decorativo">Categorias</h5>
-    <h4 class="fw-bold">Buscar Por Categoria</h4>
-    <div class="row text-center mt-3 g-3">
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-phone fs-3"></i><br>Phones
+  
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="text-decorativo">Lo Mas Popular</h5>
+        <h4 class="fw-bold">Explora Música Destacada</h4>
+      </div>
+    </div>
+    
+    <div class="row g-3">
+      <div *ngFor="let cancion of topTracksMostrados" class="col-6 col-md-2">
+        <div class="product-card">
+          <div class="sale-badge">Lo mas Top</div>
+          <div class="image-wrapper">
+            <img [src]="cancion.album.images[0]?.url" class="img-fluid mb-2" alt="Product">
+            <div class="play-button" (click)="reproducir(cancion.uri)">
+              <i class="bi bi-play-fill"></i>
+            </div>
+          </div>
+          <p class="mb-1 small">{{ cancion.name }}</p>
+          <p class="mb-1 small">{{ cancion.artists[0].name }}</p>
         </div>
       </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-laptop fs-3"></i><br>Computers
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-smartwatch fs-3"></i><br>Smartwatch
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-camera fs-3"></i><br>Cameras
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-headphones fs-3"></i><br>Headphones
-        </div>
-      </div>
-      <div class="col-4 col-md-2">
-        <div class="category-icon">
-          <i class="bi bi-controller fs-3"></i><br>Gaming
-        </div>
-      </div>
+    </div>
+  
+    <div class="text-center mt-4">
+      <button class="btn btonver">Ver Toda La Música</button>
     </div>
   </div>
 </div>
@@ -97,8 +86,8 @@
 <!-- Angular-based E-commerce UI (HTML with Bootstrap) -->
 <!-- Make sure to have Bootstrap CSS and JS loaded in your angular.json -->
 
+<!-- Favoritos -->
 <div class="container my-5">
-    <!-- Best Selling Products -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div>
         <h5 class="text-decorativo">Creado Por Ti</h5>
@@ -138,38 +127,7 @@
       </div>
     </div>
 
-  
-    <!-- Explore Our Products -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div>
-        <h5 class="text-decorativo">Lo Mas Popular</h5>
-        <h4 class="fw-bold">Explora Música Destacada</h4>
-      </div>
-      <!--<div>
-        <button class="btn btn-outline-secondary btn-sm"><</button>
-        <button class="btn btn-outline-secondary btn-sm">></button>
-      </div>-->
-    </div>
-    
-    <div class="row g-3">
-      <div *ngFor="let cancion of topTracksMostrados" class="col-6 col-md-2">
-        <div class="product-card">
-          <div class="sale-badge">Top</div>
-          <div class="image-wrapper">
-            <img [src]="cancion.album.images[0]?.url" class="img-fluid mb-2" alt="Product">
-            <div class="play-button" (click)="reproducir(cancion.uri)">
-              <i class="bi bi-play-fill"></i>
-            </div>
-          </div>
-          <p class="mb-1 small">{{ cancion.name }}</p>
-          <p class="mb-1 small">{{ cancion.artists[0].name }}</p>
-        </div>
-      </div>
-    </div>
-  
-    <div class="text-center mt-4">
-      <button class="btn btonver">Ver Toda La Música</button>
-    </div>
+
   </div>
   
 
